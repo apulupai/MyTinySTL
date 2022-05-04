@@ -28,7 +28,7 @@ namespace mystl
 {
 
 #ifdef max
-#pragma message("#undefing marco max")
+#pragma message("#undefing marco max")    //发送字符串到标准输出
 #undef max
 #endif // max
 
@@ -42,7 +42,7 @@ namespace mystl
 template <class T>
 class vector
 {
-  static_assert(!std::is_same<bool, T>::value, "vector<bool> is abandoned in mystl");
+  static_assert(!std::is_same<bool, T>::value, "vector<bool> is abandoned in mystl");     //如果表达式为false，即判断T是bool，产生一条编译错误
 public:
   // vector 的嵌套型别定义
   typedef mystl::allocator<T>                      allocator_type;
@@ -70,10 +70,12 @@ private:
 
 public:
   // 构造、复制、移动、析构函数
-  vector() noexcept
+  vector() noexcept    //函数不抛出异常
   { try_init(); }
-
-  explicit vector(size_type n)
+  
+  //explicit只能修饰含有一个参数的构造函数，或除第一个参数外其余参数都有默认值的构造函数。
+  //使构造函数不能用于隐式转换和赋值初始化
+  explicit vector(size_type n)  
   { fill_init(n, value_type()); }
 
   vector(size_type n, const value_type& value)
